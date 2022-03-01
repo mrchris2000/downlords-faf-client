@@ -38,6 +38,10 @@
   -dimmer-color: #21212199;
   -fx-text-color: #fff;
 
+  -context-menu-color: #3c3f41;
+  -context-menu-border-color: #868686;
+  -menu-item-label-color: #DCDCDC;
+
   FRIEND_IN_GAME_NOT_SELECTED_ITEM: rgba(42, 253, 53, 0.1);
   FRIEND_IN_GAME_SELECTED_ITEM: rgba(42, 253, 53, 0.35);
 }
