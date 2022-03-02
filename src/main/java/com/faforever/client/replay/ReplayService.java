@@ -255,7 +255,7 @@ public class ReplayService {
     if (item.getReplayFile() != null) {
       try {
         runReplayFile(item.getReplayFile());
-      } catch (CompressorException | IOException e) {
+      } catch (Exception e) {
         log.error("Could not read replay file `{}`", item.getReplayFile(), e);
         notificationService.addImmediateErrorNotification(e, "replay.couldNotParse");
       }
@@ -341,7 +341,7 @@ public class ReplayService {
     if (fileName.endsWith(FAF_REPLAY_FILE_ENDING)) {
       runFafReplayFile(path);
     } else if (fileName.endsWith(SUP_COM_REPLAY_FILE_ENDING)) {
-       runSupComReplayFile(path);
+      runSupComReplayFile(path);
     }
   }
 
@@ -357,12 +357,12 @@ public class ReplayService {
   }
 
   private void runOnlineReplay(int replayId) {
-     downloadReplay(replayId)
+    downloadReplay(replayId)
         .thenAccept((path) -> {
           try {
             runReplayFile(path);
           } catch (IOException | CompressorException e) {
-            throw new CompletionException(e);
+            throw new RuntimeException(e);
           }
         })
         .exceptionally(throwable -> {
@@ -434,8 +434,8 @@ public class ReplayService {
         NewGameInfo newGameInfo = new NewGameInfo(
             replayMetadata.getTitle(),
             null, featuredModBean,
-            mapName, 
-            simMods, 
+            mapName,
+            simMods,
             GameVisibility.PUBLIC,
             null,
             null,
